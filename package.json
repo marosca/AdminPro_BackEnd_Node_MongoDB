@@ -1,0 +1,19 @@
+{
+  "name": "backend_server",
+  "version": "1.0.0",
+  "description": "Servidor backend para administración de hospitales",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Mariola Moreno",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}
