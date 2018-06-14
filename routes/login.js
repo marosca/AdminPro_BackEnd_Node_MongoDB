@@ -2,7 +2,7 @@
 var express = require('express');
 var Usuario = require('../models/usuario'); //modelo de usuario
 var bcrypt = require('bcryptjs'); // sistema de encriptación
-var jwt = require('jsonwebtoken');
+var jwt = require('jsonwebtoken'); //creacion de token
 var Config = require('../config/config');
 // Inicializar variables
 var app = express();

@@ -8,8 +8,8 @@
 // requires
 var express = require('express');
 var Usuario = require('../models/usuario'); //modelo de usuario
-var bcrypt = require('bcryptjs'); // sistema de encriptación
-var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs'); // sistema de encriptación para que lo guarde encriptado en la bd
+//var jwt = require('jsonwebtoken'); // se pasa al middleware que es donde hemos hecho la función de verificar token
 var autenticacion = require('../middlewares/autenticacion');
 // Inicializar variables
 var app = express();
@@ -20,9 +20,13 @@ var app = express();
 // ==== GET ALL USERS (publico no necesita token) ============
 // ===========================================================
 app.get('/', (req, res, next) => {
+  //para paginación. Desde nos llegara por query /usuarios?
+  var desde = Number(req.query.desde) || 0; 
   //eso busca todos los usuarios, usa el modelo Usario (que se ha importado). ESta forma de búsqued de mongodb es gracias a mongoose
   // el segundo parametro de find son los campos que queremos traer (traemos  todos menos pasword)
   Usuario.find({ }, 'nombre email img role')
+    .skip(desde)
+    .limit(5) //limita a 5 la respuesta
     // ejecutamos esa búsqueda
     .exec(
       //en un callback tendremos los posibles errores o el resultado de la búsqueda
@@ -35,11 +39,16 @@ app.get('/', (req, res, next) => {
             errors: error
           });
         }
-        // si no hay error devolvemos status 200 y un json con datos, entre ellos un array de usuarios de la db 
+        // Usuario.count es un función de mongoose que te devuelve el total de resgistros
+        Usuario.count({}, (error, total) => {
+          // si no hay error devolvemos status 200 y un json con datos, entre ellos un array de usuarios de la db 
         res.status(200).json({
           ok: true,
+          total: total,
           usuario: usuarios //eso viene del Usuario.find de mongoose
         });
+        })
+
       }
     );
 });

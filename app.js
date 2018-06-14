@@ -14,6 +14,8 @@ Instlaciones:
   10. Librería bcrypt.js para encriptar passwords --> npm install bcryptjs --save
     Esta librería se importa en la rutas de usuario, que es donde voy a necesitar encrptar una contraseña pasada por post
   11. Json web token: npm install jsonwebtoken --save --> lo importamos en el login
+  12. express-fileupload. Plugins de express para FileApi --> https://github.com/richardgirges/express-fileupload
+    npm install --save express-fileupload
     */
 
 // requires
@@ -25,14 +27,23 @@ var bodyParser = require('body-parser');
 var app = express();
 // importar módulos de rutas
 var appRoutes = require('./routes/app');// Importar ruta princiapl --> /
-var usuarioRoutes = require('./routes/usuario'); // ruta de --> /usuario
 var loginRoutes = require('./routes/login'); // ruta --> /login
-
-
+var usuarioRoutes = require('./routes/usuario'); // ruta de --> /usuario
+var medicoRoutes = require('./routes/medico'); // ruta de --> /medico
+var hospitalRoutes = require('./routes/hospital'); // ruta de --> /hospital
+var busquedaRoutes = require('./routes/busqueda'); // ruta de --> /busqueda
+var uploadRoutes = require('./routes/upload'); // ruta de --> /upload
+var imagenesRoutes = require('./routes/imagenes'); // ruta /img
 // Body parser
 app.use(bodyParser.json()); // parse application/json (parsea lo json)
 app.use(bodyParser.urlencoded({ extended: false })); // application/x-www.form-urlencoded
 
+// Habilitar Cors
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Conexióna la db
 mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) => {
@@ -45,8 +56,13 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res) =
 //==========================================================
 //Rutas (estan separadas en la carpeta /routes)
 app.use('/login', loginRoutes);
-app.use('/', appRoutes);
 app.use('/usuario', usuarioRoutes);
+app.use('/medico', medicoRoutes);
+app.use('/hospital', hospitalRoutes);
+app.use('/busqueda', busquedaRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/img', imagenesRoutes);
+app.use('/', appRoutes);
 
 //Escuchar peticiones
 app.listen(3000, () => {
