@@ -1,0 +1,2 @@
+es una mini app para loguarte con google y obetener en la consola
+el token de tu usuario de google
