@@ -24,7 +24,7 @@ app.get('/', (req, res, next) => {
   var desde = Number(req.query.desde) || 0; 
   //eso busca todos los usuarios, usa el modelo Usario (que se ha importado). ESta forma de búsqued de mongodb es gracias a mongoose
   // el segundo parametro de find son los campos que queremos traer (traemos  todos menos pasword)
-  Usuario.find({ }, 'nombre email img role')
+  Usuario.find({ }, 'nombre email img role google')
     .skip(desde)
     .limit(5) //limita a 5 la respuesta
     // ejecutamos esa búsqueda
@@ -115,7 +115,7 @@ app.put('/:id', autenticacion.verificaToken, (req, res) => {
 // ========= CREAR UN NUEVO USUARIO (POST) ===================
 // ===========================================================
 // como segundo parametro se pasa una función (de verificación de token)
-app.post('/', autenticacion.verificaToken, (req, res, next) => {
+app.post('/', (req, res, next) => {
 
   var body = req.body; //eso funciona gracias al body parser. Es lo que viene del front
 

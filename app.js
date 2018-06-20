@@ -17,7 +17,11 @@ Instlaciones:
   12. express-fileupload. Plugins de express para FileApi --> https://github.com/richardgirges/express-fileupload
     npm install --save express-fileupload
   13. npm install google-auth-library --save
-    */
+  14. En un entorno de produccion sería útil instalar un plugin de express para configurar
+  bien el tema del cors: github.com/expresssjs/cors.
+  Para algo rápido se puede seguir las indicaciones de enable-cors.org/server.html
+  */
+
 // URL GENERADA POR POSTMAN con la doc: eyJhbGciOiJSUzI1NiIsImtpZCI6IjdkZGY1NGQzMDMyZDFmMGQ0OGMzNjE4ODkyY2E3NGMxYWMzMGFkNzcifQ.eyJhenAiOiIzNjQyNTYyOTkyOTAtb2Y2aDhuczZ2dWp2N2JlYzNoMGlqbWQyN2hhYzdtcHAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIzNjQyNTYyOTkyOTAtb2Y2aDhuczZ2dWp2N2JlYzNoMGlqbWQyN2hhYzdtcHAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTg0MTQwMjI3Mzc0MDMzOTI0NjEiLCJoZCI6Im9wdGl2YW1lZGlhLmNvbSIsImVtYWlsIjoibWFyaW9sYS5tb3Jlbm9Ab3B0aXZhbWVkaWEuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJ4aVFmeEFBQjJrSkhOdEdsaGxJU2FnIiwiZXhwIjoxNTI5MDUwODI2LCJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwianRpIjoiNTJkNjEwNTY2MDk5YjljZTgwMjQ0MjFmMTQ0NTJiYjgyZGZkNzkwMCIsImlhdCI6MTUyOTA0NzIyNiwibmFtZSI6Ik1hcmlvbGEgTW9yZW5vIiwicGljdHVyZSI6Imh0dHBzOi8vbGg2Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tNktzN3p3akRVRFUvQUFBQUFBQUFBQUkvQUFBQUFBQUFBQWMvbHYtaG9ObHZVQ3Mvczk2LWMvcGhvdG8uanBnIiwiZ2l2ZW5fbmFtZSI6Ik1hcmlvbGEiLCJmYW1pbHlfbmFtZSI6Ik1vcmVubyIsImxvY2FsZSI6ImVzIn0.Z1JlEi4sLExS8GyWMSXupYbrEMgkYaRafPm4MzSH3Wp6UbA8owB6zpjqeX-__4o3iBNRARRatxeB3Xi7C6XLFctR03MalMpVtRX_PWn4wwRwBrQfnfHF-Km39s5wqXAHcJw0LCztZNcV4XenRPftoo-YAPz6dSfqO9wfJ6H6pHvcenZLoMQ8wIqY38KodfTsJHkbVNiOOsyrVsULKCayr8314JV2HGc66mLsjgUOen6gWnkuQhdZixkf1Duu6ZLf198vubCj1kVMsr-6aeNu0LHNBuZnADIhswawSWITeO1u_4rx4zBr0HT7xnjvN3DWUR7VG1-7A9Zu4FGogPxEvA
 
 // requires
@@ -44,6 +48,7 @@ app.use(bodyParser.urlencoded({ extended: false })); // application/x-www.form-u
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS")
   next();
 });
 
